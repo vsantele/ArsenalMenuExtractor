@@ -24,7 +24,7 @@ namespace Vsantele.Functions
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
              [CosmosDB(
                 databaseName: "arsenal",
-                collectionName: "menu",
+                collectionName: "menus",
                 ConnectionStringSetting = "CosmosDbConnectionString",
                 SqlQuery = "SELECT top 2 * FROM c order by c._ts desc")]
                 IEnumerable<Menu> menus,

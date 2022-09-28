@@ -22,7 +22,7 @@ namespace Vsantele.Functions
         [FunctionName("GetMenu")]
         [return: CosmosDB(
             databaseName: "arsenal",
-            collectionName: "menu",
+            collectionName: "menus",
             ConnectionStringSetting = "CosmosDbConnectionString")]
         public static async Task<Menu> Run([TimerTrigger("0 0 18 * * 0")] TimerInfo myTimer, ILogger log)
         {
