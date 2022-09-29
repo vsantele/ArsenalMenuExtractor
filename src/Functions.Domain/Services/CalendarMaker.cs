@@ -1,39 +1,33 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
-using DeepEyes.Functions;
+using ArsenalExtractor.Functions.Domain.Helpers;
+using ArsenalExtractor.Functions.Domain.Models;
+using Azure;
+using Azure.AI.FormRecognizer.DocumentAnalysis;
 using Ical.Net;
 using Ical.Net.CalendarComponents;
 using Ical.Net.DataTypes;
 using Ical.Net.Serialization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Vsantele.Functions.Models;
 
-namespace Vsantele.Functions
+namespace ArsenalExtractor.Functions.Domain.Services
 {
-    public static class GetCalendar
+    public class CalendarMaker : ICalendarMaker
     {
-        [FunctionName("GetCalendar")]
-        public static IActionResult Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
-             [CosmosDB(
-                databaseName: "arsenal",
-                collectionName: "menus",
-                ConnectionStringSetting = "CosmosDbConnectionString",
-                SqlQuery = "SELECT top 2 * FROM c order by c._ts desc")]
-                IEnumerable<Menu> menus,
-            ILogger log)
+        private readonly IDateHelper _dateHelper;
+
+        public CalendarMaker(IDateHelper dateHelper)
+        {
+            _dateHelper = dateHelper;
+        }
+
+        public string GenerateICal(IEnumerable<Menu> menus)
         {
             var calendar = new Calendar();
             foreach (var menu in menus)
             {
-                var startWeek = DateTime.Parse(Utils.ConvertDate(menu.WeekInfo.DayStart, menu.WeekInfo.MonthStart, menu.WeekInfo.Year));
+                var startWeek = DateTime.Parse(_dateHelper.ConvertDate(menu.WeekInfo.DayStart, menu.WeekInfo.MonthStart, menu.WeekInfo.Year));
                 for (int i = 0; i < menu.MenuDetails.Count; i++)
                 {
                     var start = startWeek.AddDays(i).AddHours(12);
@@ -53,8 +47,7 @@ namespace Vsantele.Functions
             var serializer = new CalendarSerializer();
             var serializedCalendar = serializer.SerializeToString(calendar);
 
-
-            return new OkObjectResult(serializedCalendar);
+            return serializedCalendar;
         }
 
         private static string MakeDescription(List<string> menu)

@@ -2,12 +2,12 @@
 param projectName string = 'arsenalExtractor'
 param location string = resourceGroup().location
 
-var formRecognizerName = '${projectName}-2208-fr'
-var storageAccountName = '${projectName}2208st'
-var functionAppName = '${projectName}-2208-func'
-var serverFarmName = '${projectName}-2208-plan'
-var appInsightsName = '${projectName}-2208-appi'
-var cosmosDbName = '${projectName}-2208-cdb'
+var formRecognizerName = '${projectName}-2209-fr'
+var storageAccountName = '${projectName}2209st'
+var functionAppName = '${projectName}-2209-func'
+var serverFarmName = '${projectName}-2209-plan'
+var appInsightsName = '${projectName}-2209-appi'
+var cosmosDbName = '${projectName}-2209-cdb'
 var cosmosDbDatabaseName = 'arsenal'
 var cosmosDbCollectionName = 'menus'
 
@@ -120,10 +120,6 @@ resource azureFunction 'Microsoft.Web/sites@2022-03-01' = {
       http20Enabled: true
       appSettings: [
         {
-          name: 'AzureWebJobsDashboard'
-          value: 'DefaultEndpointsProtocol=https;AccountName=${storageAccountName};AccountKey=${listKeys(storageAccountName, '2019-06-01').keys[0].value}'
-        }
-        {
           name: 'AzureWebJobsStorage'
           value: 'DefaultEndpointsProtocol=https;AccountName=${storageAccountName};AccountKey=${listKeys(storageAccountName, '2019-06-01').keys[0].value}'
         }
@@ -145,14 +141,14 @@ resource azureFunction 'Microsoft.Web/sites@2022-03-01' = {
         }
         {
           name: 'FUNCTIONS_WORKER_RUNTIME'
-          value: 'dotnet'
+          value: 'dotnet-isolated'
         }
         {
-          name: 'AzureFormRecognizerEndpoint'
+          name: 'AzureFormRecognizer:Endpoint'
           value: reference(formRecognizer.id, '2021-04-30').endpoint
         }
         {
-          name: 'AzureFormRecognizerApiKey'
+          name: 'AzureFormRecognizer:ApiKey'
           value: listKeys(formRecognizer.id, '2021-04-30').key1
         }
       ]

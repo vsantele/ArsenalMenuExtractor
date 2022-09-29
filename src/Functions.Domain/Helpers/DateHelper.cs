@@ -1,17 +1,16 @@
 using System;
-using Microsoft.Azure.WebJobs;
 
-namespace DeepEyes.Functions
+namespace ArsenalExtractor.Functions.Domain.Helpers
 {
-    public class Utils
+    public class DateHelper : IDateHelper
     {
-        public static string ConvertDate(string day, string month, string year)
+        public string ConvertDate(string day, string month, string year)
         {
             var monthNumber = GetMonthNumber(month);
             return $"{year}-{monthNumber}-{day}";
         }
 
-        public static string GetMonthNumber(string month)
+        public string GetMonthNumber(string month)
         {
             month = month.ToLower();
             Console.WriteLine(month);
@@ -29,7 +28,7 @@ namespace DeepEyes.Functions
                 "octobre" => "10",
                 "novembre" => "11",
                 "décembre" => "12",
-                _ => "01",
+                _ => month,
             };
         }
     };
