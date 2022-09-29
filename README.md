@@ -1,6 +1,6 @@
 # Arsenal Menu Extractor
 
-![Build](https://github.com/vsantele/ArsenalMenuExtractor/actions/workflows/main.yml/badge.svg) ![GitHub Repo stars](https://img.shields.io/github/stars/vsantele/ArsenalMenuExtractor?style=social)
+![Build](https://github.com/vsantele/ArsenalMenuExtractor/actions/workflows/main.yml/badge.svg) ![GitHub Repo stars](https://img.shields.io/github/stars/vsantele/ArsenalMenuExtractor?style=social) [![wakatime](https://wakatime.com/badge/user/50b62530-8c31-4f47-94c5-590cb1842ae5/project/3bf6a87c-3343-444c-9303-73386e776284.svg)](https://wakatime.com/badge/user/50b62530-8c31-4f47-94c5-590cb1842ae5/project/3bf6a87c-3343-444c-9303-73386e776284)
 
 This is a tool to extract the Arsenal menu from the [Unamur](https://www.unamur.be/services/vecu/arsenal-restaurants-salles/menu-tarif) website.
 
