@@ -5,10 +5,10 @@ using Microsoft.Extensions.Logging;
 
 namespace ArsenalExtractor.Functions
 {
-    public class GetMenu
+    public class ExtractMenu
     {
         private readonly ICalendarProvider _calendarProvider;
-        public GetMenu(ICalendarProvider calendarProvider)
+        public ExtractMenu(ICalendarProvider calendarProvider)
         {
             _calendarProvider = calendarProvider;
         }
