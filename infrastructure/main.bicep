@@ -2,7 +2,7 @@
 param projectName string = 'arsenalExtractor'
 param location string = resourceGroup().location
 
-var formRecognizerName = '${projectName}-2209-fr'
+var formRecognizerName = '${projectName}-2209-form'
 var storageAccountName = '${projectName}2209st'
 var functionAppName = '${projectName}-2209-func'
 var serverFarmName = '${projectName}-2209-plan'
