@@ -16,7 +16,7 @@ The `GetCalendar` function is triggered by an HTTP request. It will then return 
 
 ## How to use
 
-Simply add the URL of the `GetCalendar` function to your calendar. The URL is [https://arsenalextractor-2209-func.azurewebsites.net/api/getcalendar](https://arsenalextractor-2208-func.azurewebsites.net/api/getcalendar)
+Simply add the URL of the `GetCalendar` function to your calendar. The URL is [https://arsenalextractor-2209-func.azurewebsites.net/api/getcalendar](https://arsenalextractor-2209-func.azurewebsites.net/api/getcalendar)
 
 ## How to deploy
 
