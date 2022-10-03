@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ArsenalExtractor.Functions.Options;
 using Azure;
 using Azure.AI.FormRecognizer.DocumentAnalysis;
@@ -42,7 +38,7 @@ namespace ArsenalExtractor.Functions.Domain.Services
             int rowIndex = 0;
             foreach (DocumentTableCell cell in table.Cells)
             {
-                if (cell.RowIndex == 0) continue;
+                if (cell.RowIndex == 0 || IsHeaderRow(cell.Content)) continue;
                 if (cell.RowIndex > rowIndex)
                 {
                     tableContent.Add(new List<string>());
@@ -52,6 +48,12 @@ namespace ArsenalExtractor.Functions.Domain.Services
                 tableContent.Last().Add(cell.Content);
             }
             return tableContent;
+        }
+
+        private static bool IsHeaderRow(string cellContent)
+        {
+            cellContent = cellContent.ToLower();
+            return cellContent.Contains("menu") || cellContent.Contains("du jour") || cellContent.Contains("du chef") || cellContent.Contains("végé");
         }
     }
 }
