@@ -1,6 +1,9 @@
 name: Deploy Azure Functions
 
-on: [push]
+on:
+  push:
+    paths-ignore:
+      - "README.md"
 
 env:
   AZURE_FUNCTIONAPP_NAME: arsenalextractor-2209-func # set this to your application's name
