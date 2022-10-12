@@ -24,6 +24,10 @@ namespace ArsenalExtractor.Functions.Domain.Services
 
         public string GenerateICal(IEnumerable<Menu> menus)
         {
+            return GenerateICal(menus, "day");
+        }
+        public string GenerateICal(IEnumerable<Menu> menus, string favMenu = "day")
+        {
             var calendar = new Calendar();
             calendar.AddTimeZone(new VTimeZone("Europe/Brussels"));
             foreach (var menu in menus)
@@ -37,7 +41,7 @@ namespace ArsenalExtractor.Functions.Domain.Services
                     {
                         Start = new CalDateTime(start),
                         End = new CalDateTime(end),
-                        Summary = menu.MenuDetails[i][0],
+                        Summary = menu.MenuDetails[i][MenuIndex(favMenu)],
                         Description = MakeDescription(menu.MenuDetails[i]),
                         Location = "Arsenal"
                     };
@@ -58,6 +62,17 @@ namespace ArsenalExtractor.Functions.Domain.Services
             description += "Chef: " + menu[1] + "\\n";
             description += "Végé: " + menu[2];
             return description;
+        }
+
+        private static int MenuIndex(string menu)
+        {
+            return menu switch
+            {
+                "day" => 0,
+                "chef" => 1,
+                "vege" => 2,
+                _ => 0,
+            };
         }
     }
 }

@@ -44,7 +44,23 @@ namespace ArsenalExtractor.Functions.Domain.Providers
 
         public string GetCalendar(IEnumerable<Menu> menus)
         {
-            return _calendarMaker.GenerateICal(menus);
+            return GetCalendar(menus, "day");
+        }
+        public string GetCalendar(IEnumerable<Menu> menus, string favMenu)
+        {
+            favMenu = ValidatedFavMenu(favMenu);
+            return _calendarMaker.GenerateICal(menus, favMenu);
+        }
+
+        static private string ValidatedFavMenu(string favMenu)
+        {
+            favMenu = favMenu.ToLower();
+            return favMenu switch
+            {
+                "vegetarian" or "vege" or "vegé" or "vegétarien" => "vege",
+                "chef" => "chef",
+                "day" or "jour" or _ => "day",
+            };
         }
 
     }

@@ -1,4 +1,5 @@
 using System.Net;
+using System.Web;
 using ArsenalExtractor.Functions.Domain.Models;
 using ArsenalExtractor.Functions.Domain.Providers;
 using Microsoft.Azure.Functions.Worker;
@@ -28,7 +29,10 @@ namespace ArsenalExtractor.Functions
 
             response.Headers.Add("Content-Type", "text/calendar");
 
-            var calendar = _calendarProvider.GetCalendar(menus);
+            var query = HttpUtility.ParseQueryString(req.Url.Query);
+            var favMenu = query.Get("menu") ?? "";
+
+            var calendar = _calendarProvider.GetCalendar(menus, favMenu);
 
             response.WriteString(calendar);
 

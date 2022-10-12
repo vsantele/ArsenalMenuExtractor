@@ -82,6 +82,66 @@ namespace UnitTests.Functions.Domain.Services
             Assert.Contains("DESCRIPTION:Jour: Vendredi | Chef: Chef 5 | Végé: Végé 5", result);
 
         }
+        [Fact]
+        public void GenerateICal_SelectedFavMenuShouldBeInSumary()
+        {
+            //arrange
+            var menusInput = new List<Menu>
+            {
+                new Menu() {
+                    WeekInfo = new WeekInfo() {
+                        DayStart = "19",
+                        MonthStart = "09",
+                        DayEnd = "25",
+                        MonthEnd = "09",
+                        Year = "2022"
+                    },
+                    MenuDetails = new List<List<string>> {
+                        new List<string> {
+                            "Lundi",
+                            "Chef 1",
+                            "Végé 1"
+                        },
+                        new List<string> {
+                            "Mardi",
+                            "Chef 2",
+                            "Végé 2"
+                        },
+                        new List<string> {
+                            "Mercredi",
+                            "Chef 3",
+                            "Végé 3"
+                        },
+                        new List<string> {
+                            "Jeudi",
+                            "Chef 4",
+                            "Végé 4"
+                        },
+                        new List<string> {
+                            "Vendredi",
+                            "Chef 5",
+                            "Végé 5"
+                        }
+                    }
+
+                }
+            };
+
+            var dateHelper = new DateHelper();
+
+            var sut = new CalendarMaker(dateHelper);
+
+            //act
+            var result = sut.GenerateICal(menusInput, "vege");
+
+            //assert
+            Assert.Contains("SUMMARY:Végé 1", result);
+            Assert.Contains("SUMMARY:Végé 2", result);
+            Assert.Contains("SUMMARY:Végé 3", result);
+            Assert.Contains("SUMMARY:Végé 4", result);
+            Assert.Contains("SUMMARY:Végé 5", result);
+
+        }
     }
 }
 
