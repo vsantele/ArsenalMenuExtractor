@@ -75,11 +75,11 @@ namespace UnitTests.Functions.Domain.Services
             Assert.Contains("SUMMARY:Mercredi", result);
             Assert.Contains("SUMMARY:Jeudi", result);
             Assert.Contains("SUMMARY:Vendredi", result);
-            Assert.Contains("DESCRIPTION:Jour: Lundi | Chef: Chef 1 | Végé: Végé 1", result);
-            Assert.Contains("DESCRIPTION:Jour: Mardi | Chef: Chef 2 | Végé: Végé 2", result);
-            Assert.Contains("DESCRIPTION:Jour: Mercredi | Chef: Chef 3 | Végé: Végé 3", result);
-            Assert.Contains("DESCRIPTION:Jour: Jeudi | Chef: Chef 4 | Végé: Végé 4", result);
-            Assert.Contains("DESCRIPTION:Jour: Vendredi | Chef: Chef 5 | Végé: Végé 5", result);
+            Assert.Contains("DESCRIPTION:Jour: Lundi\\nChef: Chef 1\\nVégé: Végé 1", result);
+            Assert.Contains("DESCRIPTION:Jour: Mardi\\nChef: Chef 2\\nVégé: Végé 2", result);
+            Assert.Contains("DESCRIPTION:Jour: Mercredi\\nChef: Chef 3\\nVégé: Végé 3", result);
+            Assert.Contains("DESCRIPTION:Jour: Jeudi\\nChef: Chef 4\\nVégé: Végé 4", result);
+            Assert.Contains("DESCRIPTION:Jour: Vendredi\\nChef: Chef 5\\nVégé: Végé 5", result);
 
         }
         [Fact]
