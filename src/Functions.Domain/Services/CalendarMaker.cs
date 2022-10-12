@@ -53,8 +53,8 @@ namespace ArsenalExtractor.Functions.Domain.Services
         private static string MakeDescription(List<string> menu)
         {
             var description = "";
-            description += "Jour: " + menu[0] + " | ";
-            description += "Chef: " + menu[1] + " | ";
+            description += "Jour: " + menu[0] + "\\n";
+            description += "Chef: " + menu[1] + "\\n";
             description += "Végé: " + menu[2];
             return description;
         }
