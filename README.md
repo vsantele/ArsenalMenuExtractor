@@ -26,6 +26,8 @@ If you want to select the menu for the summary, you can add the `?menu={yourMenu
 
 Example: [https://arsenalextractor-2209-func.azurewebsites.net/api/getcalendar?menu=vege](https://arsenalextractor-2209-func.azurewebsites.net/api/getcalendar?menu=vege) will show the vegetarian menu in the summary of the event.
 
+You can see the menu directly on your browser with [this link](https://calendar.google.com/calendar/u/0/embed?src=risbi89uhhld64l3do7d9nbgpmst9lsk@import.calendar.google.com&ctz=Europe/Brussels).
+
 ## How to deploy
 
 To deploy this project, you can use the [Bicep](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/overview?tabs=bicep) file inside `infrastructure` folder. Then you can upload the code to Azure Functions using the [Azure Functions extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions) for Visual Studio Code.
