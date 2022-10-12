@@ -1,7 +1,3 @@
-using System;
-using System.Net.Http;
-using System.Threading.Tasks;
-
 namespace ArsenalExtractor.Functions.Domain.Services.HttpClients
 {
     public class UnamurHttpClient

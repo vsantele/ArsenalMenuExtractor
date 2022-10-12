@@ -1,11 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ArsenalExtractor.Functions.Domain.Helpers;
 using ArsenalExtractor.Functions.Domain.Models;
-using Azure;
-using Azure.AI.FormRecognizer.DocumentAnalysis;
 using Ical.Net;
 using Ical.Net.CalendarComponents;
 using Ical.Net.DataTypes;

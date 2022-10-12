@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 namespace ArsenalExtractor.Functions.Domain.Models
 {
     public class Menu

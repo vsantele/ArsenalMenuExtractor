@@ -1,4 +1,3 @@
-using System;
 
 namespace ArsenalExtractor.Functions.Domain.Helpers
 {
@@ -13,7 +12,6 @@ namespace ArsenalExtractor.Functions.Domain.Helpers
         public string GetMonthNumber(string month)
         {
             month = month.ToLower();
-            Console.WriteLine(month);
             return month switch
             {
                 "janvier" => "01",

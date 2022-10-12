@@ -11,11 +11,8 @@ namespace ArsenalExtractor.Functions.Domain.Services
 
         public FormRecognition(IOptions<AzureFormRecognizer> options)
         {
-            // get azure form recognizer endpoint from local config
             string endpoint = options.Value.Endpoint;
             string apiKey = options.Value.ApiKey;
-            Console.WriteLine($"endpoint: {endpoint}");
-            Console.WriteLine($"apiKey: {apiKey}");
             var credential = new AzureKeyCredential(apiKey);
             var client = new DocumentAnalysisClient(new Uri(endpoint), credential);
             _client = client;

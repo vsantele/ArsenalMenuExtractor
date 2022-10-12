@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using ArsenalExtractor.Functions.Domain.Models;
 using ArsenalExtractor.Functions.Domain.Services;
 using ArsenalExtractor.Functions.Domain.Services.HttpClients;

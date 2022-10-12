@@ -1,5 +1,4 @@
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using ArsenalExtractor.Functions.Domain.Helpers;
 using ArsenalExtractor.Functions.Domain.Providers;
 using ArsenalExtractor.Functions.Domain.Services;

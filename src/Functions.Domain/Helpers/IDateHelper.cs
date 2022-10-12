@@ -1,4 +1,3 @@
-using System;
 
 namespace ArsenalExtractor.Functions.Domain.Helpers
 {

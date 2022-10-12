@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Text.RegularExpressions;
 using ArsenalExtractor.Functions.Domain.Models;
 using HtmlAgilityPack;
