@@ -25,6 +25,7 @@ namespace ArsenalExtractor.Functions.Domain.Services
         public string GenerateICal(IEnumerable<Menu> menus)
         {
             var calendar = new Calendar();
+            calendar.AddTimeZone(new VTimeZone("Europe/Brussels"));
             foreach (var menu in menus)
             {
                 var startWeek = DateTime.Parse(_dateHelper.ConvertDate(menu.WeekInfo.DayStart, menu.WeekInfo.MonthStart, menu.WeekInfo.Year));
