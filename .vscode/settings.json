@@ -4,5 +4,6 @@
   "azureFunctions.projectRuntime": "~4",
   "debug.internalConsoleOptions": "neverOpen",
   "azureFunctions.preDeployTask": "publish (functions)",
-  "dotnet-test-explorer.testProjectPath": "**/*-tests.@(csproj|vbproj|fsproj)"
+  "dotnet-test-explorer.testProjectPath": "**/*-tests.@(csproj|vbproj|fsproj)",
+  "azureFunctions.projectSubpath": "src\\ArsenalExtractor.Functions\\src"
 }
