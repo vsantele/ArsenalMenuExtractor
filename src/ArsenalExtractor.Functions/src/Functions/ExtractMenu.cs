@@ -17,7 +17,7 @@ namespace ArsenalExtractor.Functions
             databaseName: "arsenal",
             collectionName: "menus",
             ConnectionStringSetting = "CosmosDbConnectionString")]
-        public async Task<Menu> Run([TimerTrigger("0 0 18 * * 0")] MyInfo myTimer, FunctionContext executionContext)
+        public async Task<Menu> Run([TimerTrigger("0 0 10 * * 6")] MyInfo myTimer, FunctionContext executionContext)
         {
             var logger = executionContext.GetLogger("ExtractMenu");
             logger.LogInformation("Extract menu");
