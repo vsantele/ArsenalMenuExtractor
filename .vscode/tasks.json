@@ -4,25 +4,17 @@
     {
       "label": "clean (functions)",
       "command": "dotnet",
-      "args": [
-        "clean",
-        "/property:GenerateFullPaths=true",
-        "/consoleloggerparameters:NoSummary"
-      ],
+      "args": ["clean", "/property:GenerateFullPaths=true", "/consoleloggerparameters:NoSummary"],
       "type": "process",
       "problemMatcher": "$msCompile",
       "options": {
-        "cwd": "src/"
+        "cwd": "src/ArsenalExtractor.Functions/src"
       }
     },
     {
       "label": "build (functions)",
       "command": "dotnet",
-      "args": [
-        "build",
-        "/property:GenerateFullPaths=true",
-        "/consoleloggerparameters:NoSummary"
-      ],
+      "args": ["build", "/property:GenerateFullPaths=true", "/consoleloggerparameters:NoSummary"],
       "type": "process",
       "dependsOn": "clean (functions)",
       "group": {
@@ -31,7 +23,7 @@
       },
       "problemMatcher": "$msCompile",
       "options": {
-        "cwd": "src/"
+        "cwd": "src/ArsenalExtractor.Functions/src"
       }
     },
     {
@@ -47,7 +39,7 @@
       "type": "process",
       "problemMatcher": "$msCompile",
       "options": {
-        "cwd": "src/"
+        "cwd": "src/ArsenalExtractor.Functions/src"
       }
     },
     {
@@ -64,14 +56,14 @@
       "dependsOn": "clean release (functions)",
       "problemMatcher": "$msCompile",
       "options": {
-        "cwd": "src/"
+        "cwd": "src/ArsenalExtractor.Functions/src"
       }
     },
     {
       "type": "func",
       "dependsOn": "build (functions)",
       "options": {
-        "cwd": "${workspaceFolder}/src/bin/Debug/net6.0"
+        "cwd": "${workspaceFolder}/src/ArsenalExtractor.Functions/src/bin/Debug/net6.0"
       },
       "command": "host start",
       "isBackground": true,
