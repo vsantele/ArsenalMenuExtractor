@@ -22,35 +22,40 @@ namespace ArsenalExtractor.Functions.Domain.Services
         {
             Uri fileUri = new(imageUrl);
 
-            AnalyzeDocumentOperation operation = await _client.AnalyzeDocumentFromUriAsync(WaitUntil.Completed, "prebuilt-layout", fileUri);
+            AnalyzeDocumentOperation operation = await _client.AnalyzeDocumentFromUriAsync(WaitUntil.Completed, "menuByLabel", fileUri);
             AnalyzeResult result = operation.Value;
 
-            if (result.Tables.Count < 1)
-            {
-                throw new Exception("No table found");
-            }
-            DocumentTable table = result.Tables[0];
+            var menu = new List<List<string>>();
 
-            List<List<string>> tableContent = new();
-            int rowIndex = 0;
-            foreach (DocumentTableCell cell in table.Cells)
+            var document = result.Documents.Where(d => d.DocumentType == "menuByLabel:menuByLabel").FirstOrDefault();
+            if (document == null)
             {
-                if (cell.RowIndex == 0 || IsHeaderRow(cell.Content)) continue;
-                if (cell.RowIndex > rowIndex)
-                {
-                    tableContent.Add(new List<string>());
-                    rowIndex = cell.RowIndex;
-                }
-                if (cell.ColumnIndex == 0) continue;
-                tableContent.Last().Add(cell.Content);
+                throw new Exception("No document found");
             }
-            return tableContent;
-        }
+            var fields = document.Fields;
+            var dayMonday = fields["dayMonday"].Value.AsString();
+            var dayTuesday = fields["dayTuesday"].Value.AsString();
+            var dayWednesday = fields["dayWednesday"].Value.AsString();
+            var dayThursday = fields["dayThursday"].Value.AsString();
+            var dayFriday = fields["dayFriday"].Value.AsString();
+            var chefMonday = fields["chefMonday"].Value.AsString();
+            var chefTuesday = fields["chefTuesday"].Value.AsString();
+            var chefWednesday = fields["chefWednesday"].Value.AsString();
+            var chefThursday = fields["chefThursday"].Value.AsString();
+            var chefFriday = fields["chefFriday"].Value.AsString();
+            var vegeMonday = fields["vegeMonday"].Value.AsString();
+            var vegeTuesday = fields["vegeTuesday"].Value.AsString();
+            var vegeWednesday = fields["vegeWednesday"].Value.AsString();
+            var vegeThursday = fields["vegeThursday"].Value.AsString();
+            var vegeFriday = fields["vegeFriday"].Value.AsString();
 
-        private static bool IsHeaderRow(string cellContent)
-        {
-            cellContent = cellContent.ToLower();
-            return cellContent.Contains("menu") || cellContent.Contains("du jour") || cellContent.Contains("du chef") || cellContent.Contains("végé");
+            menu.Add(new List<string> { dayMonday, chefMonday, vegeMonday });
+            menu.Add(new List<string> { dayTuesday, chefTuesday, vegeTuesday });
+            menu.Add(new List<string> { dayWednesday, chefWednesday, vegeWednesday });
+            menu.Add(new List<string> { dayThursday, chefThursday, vegeThursday });
+            menu.Add(new List<string> { dayFriday, chefFriday, vegeFriday });
+
+            return menu;
         }
     }
 }
