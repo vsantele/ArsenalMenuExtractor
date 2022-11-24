@@ -41,7 +41,7 @@ jobs:
     branches:
       - main
     needs: build-and-test
-    jobs:
+    steps:
       - name: Download build result for job build
         uses: actions/download-artifact@v3
         with:
