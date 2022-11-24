@@ -2,16 +2,18 @@ name: Deploy Azure Functions
 
 on:
   push:
+    branches:
+      - main
+      - dev
     paths-ignore:
       - "README.md"
 
 env:
   AZURE_FUNCTIONAPP_NAME: arsenalextractor-2209-func # set this to your application's name
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: "." # set this to the path to your web app project, defaults to the repository root
   DOTNET_VERSION: "6.0.401" # set this to the dotnet version to use
 
 jobs:
-  build-and-deploy:
+  build-and-test:
     runs-on: windows-latest
     steps:
       - name: "Checkout GitHub action"
@@ -24,17 +26,30 @@ jobs:
 
       - name: "Resolve Project Dependencies Using Dotnet"
         shell: pwsh
-        run: |
-          pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
-          dotnet build ./src/ArsenalExtractor.Functions/src/ArsenalExtractor.csproj --configuration Release --output ./output
-          popd
+        run: dotnet build ./src/ArsenalExtractor.Functions/src/ArsenalExtractor.csproj --configuration Release --output ./output
       - name: Unit Tests
         run: |
           dotnet restore ./src/ArsenalExtractor.Functions/tests/unit-tests/unit-tests.csproj
           dotnet test ./src/ArsenalExtractor.Functions/tests/unit-tests/unit-tests.csproj --no-restore --verbosity normal
+      - name: Upload build
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: output
+  deploy:
+    runs-on: windows-latest
+    branches:
+      - main
+    needs: build-and-test
+    jobs:
+      - name: Download build result for job build
+        uses: actions/download-artifact@v3
+        with:
+          name: build
+          path: output
       - name: "Run Azure Functions action"
         uses: Azure/functions-action@v1
         with:
           app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
-          package: "${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output"
+          package: "output"
           publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
