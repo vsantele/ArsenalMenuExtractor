@@ -38,8 +38,7 @@ jobs:
           path: output
   deploy:
     runs-on: windows-latest
-    branches:
-      - main
+    if: github.ref == 'refs/heads/main'
     needs: build-and-test
     steps:
       - name: Download build result for job build
