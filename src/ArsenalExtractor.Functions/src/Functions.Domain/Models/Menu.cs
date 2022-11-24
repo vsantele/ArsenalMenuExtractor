@@ -4,6 +4,6 @@ namespace ArsenalExtractor.Functions.Domain.Models
     {
         public string Id { get; set; } = string.Empty;
         public WeekInfo WeekInfo { get; set; } = new WeekInfo();
-        public List<List<string>> MenuDetails { get; set; } = new List<List<string>>();
+        public List<MenuInfo> MenuInfos { get; set; } = new List<MenuInfo>();
     }
 }

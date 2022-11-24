@@ -3,10 +3,10 @@ namespace ArsenalExtractor.Functions.Domain.Helpers
 {
     public class DateHelper : IDateHelper
     {
-        public string ConvertDate(string day, string month, string year)
+        public DateTime ConvertDate(string day, string month, string year)
         {
             var monthNumber = GetMonthNumber(month);
-            return $"{year}-{monthNumber}-{day}";
+            return DateTime.Parse($"{year}-{monthNumber}-{day}");
         }
 
         public string GetMonthNumber(string month)

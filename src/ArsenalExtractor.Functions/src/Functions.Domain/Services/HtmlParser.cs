@@ -20,7 +20,7 @@ namespace ArsenalExtractor.Functions.Domain.Services
             return imageLink;
         }
 
-        public WeekInfo GetWeekInfo(string html)
+        public WeekInfoSrc GetWeekInfo(string html)
         {
             HtmlDocument htmlDoc = new();
             htmlDoc.LoadHtml(html);
@@ -40,7 +40,7 @@ namespace ArsenalExtractor.Functions.Domain.Services
 
             if (monthStart == "") monthStart = monthEnd;
 
-            return new WeekInfo
+            return new WeekInfoSrc
             {
                 WeekNumber = weekNumber,
                 DayStart = dayStart,

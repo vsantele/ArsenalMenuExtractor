@@ -12,6 +12,7 @@ namespace ArsenalExtractor.Functions
         {
             _calendarProvider = calendarProvider;
         }
+
         [Function("ExtractMenu")]
         [CosmosDBOutput(
             databaseName: "arsenal",
@@ -21,7 +22,8 @@ namespace ArsenalExtractor.Functions
         {
             var logger = executionContext.GetLogger("ExtractMenu");
             logger.LogInformation("Extract menu");
-            var menuInfo = await _calendarProvider.ExtractCalendarAsync();
+            Menu menuInfo = await _calendarProvider.ExtractCalendarAsync();
+
             logger.LogInformation($"Week:{menuInfo.Id}");
             return menuInfo;
         }

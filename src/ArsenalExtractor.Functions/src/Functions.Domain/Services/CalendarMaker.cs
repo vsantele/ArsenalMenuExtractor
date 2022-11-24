@@ -1,3 +1,4 @@
+using System.ComponentModel.Design;
 using ArsenalExtractor.Functions.Domain.Helpers;
 using ArsenalExtractor.Functions.Domain.Models;
 using Ical.Net;
@@ -26,17 +27,17 @@ namespace ArsenalExtractor.Functions.Domain.Services
             calendar.AddTimeZone(new VTimeZone("Europe/Brussels"));
             foreach (var menu in menus)
             {
-                var startWeek = DateTime.Parse(_dateHelper.ConvertDate(menu.WeekInfo.DayStart, menu.WeekInfo.MonthStart, menu.WeekInfo.Year));
-                for (int i = 0; i < menu.MenuDetails.Count; i++)
+                var startWeek = menu.WeekInfo.StartDate;
+                foreach (var menuInfo in menu.MenuInfos)
                 {
-                    var start = startWeek.AddDays(i).AddHours(12);
-                    var end = start.AddHours(1).AddMinutes(30);
+                    var start = menuInfo.Date.Add(new TimeSpan(12,0,0));
+                    var end = menuInfo.Date.Add(new TimeSpan(13,30,0));
                     var eventItem = new CalendarEvent
                     {
                         Start = new CalDateTime(start),
                         End = new CalDateTime(end),
-                        Summary = menu.MenuDetails[i][MenuIndex(favMenu)],
-                        Description = MakeDescription(menu.MenuDetails[i]),
+                        Summary = FavoriteMenu(menuInfo, favMenu),
+                        Description = MakeDescription(menuInfo),
                         Location = "Arsenal"
                     };
                     calendar.Events.Add(eventItem);
@@ -49,23 +50,23 @@ namespace ArsenalExtractor.Functions.Domain.Services
             return serializedCalendar;
         }
 
-        private static string MakeDescription(List<string> menu)
+        private static string MakeDescription(MenuInfo menu)
         {
             var description = "";
-            description += "Jour: " + menu[0] + "\\n";
-            description += "Chef: " + menu[1] + "\\n";
-            description += "Végé: " + menu[2];
+            description += "Jour: " + menu.Day + "\\n";
+            description += "Chef: " + menu.Chef + "\\n";
+            description += "Végé: " + menu.Vegetarian;
             return description;
         }
 
-        private static int MenuIndex(string menu)
+        private static string FavoriteMenu(MenuInfo menu, string favMenu)
         {
-            return menu switch
+            return favMenu switch
             {
-                "day" => 0,
-                "chef" => 1,
-                "vege" => 2,
-                _ => 0,
+                "day" => menu.Day,
+                "chef" => menu.Chef,
+                "vege" => menu.Vegetarian,
+                _ => menu.Day
             };
         }
     }

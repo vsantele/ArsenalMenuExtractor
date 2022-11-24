@@ -46,8 +46,8 @@ namespace UnitTests.Functions.Domain.Services
             var result2 = sut.ConvertDate(day, monthName2, year); ;
 
             //assert
-            Assert.Equal("2022-01-06", result1);
-            Assert.Equal("2022-03-06", result2);
+            Assert.Equal(DateTime.Parse("2022-01-06"), result1);
+            Assert.Equal(DateTime.Parse("2022-03-06"), result2);
         }
     }
 }

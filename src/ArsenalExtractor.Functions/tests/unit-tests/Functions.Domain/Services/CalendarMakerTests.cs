@@ -15,37 +15,39 @@ namespace UnitTests.Functions.Domain.Services
             {
                 new Menu() {
                     WeekInfo = new WeekInfo() {
-                        DayStart = "19",
-                        MonthStart = "09",
-                        DayEnd = "25",
-                        MonthEnd = "09",
-                        Year = "2022"
-                    },
-                    MenuDetails = new List<List<string>> {
-                        new List<string> {
-                            "Lundi",
-                            "Chef 1",
-                            "Végé 1"
+                        StartDate = DateTime.Parse("2022-09-19"),
+                        EndDate = DateTime.Parse("2022-09-25")
                         },
-                        new List<string> {
-                            "Mardi",
-                            "Chef 2",
-                            "Végé 2"
+                    MenuInfos = new List<MenuInfo> {
+                        new MenuInfo {
+                            Date = DateTime.Parse("2022-09-19"),
+                            Day = "Lundi",
+                            Chef = "Chef 1",
+                            Vegetarian = "Végé 1"
                         },
-                        new List<string> {
-                            "Mercredi",
-                            "Chef 3",
-                            "Végé 3"
+                        new MenuInfo {
+                            Date = DateTime.Parse("2022-09-20"),
+                            Day = "Mardi",
+                            Chef = "Chef 2",
+                            Vegetarian = "Végé 2"
                         },
-                        new List<string> {
-                            "Jeudi",
-                            "Chef 4",
-                            "Végé 4"
+                        new MenuInfo {
+                            Date = DateTime.Parse("2022-09-21"),
+                            Day = "Mercredi",
+                            Chef = "Chef 3",
+                            Vegetarian = "Végé 3"
                         },
-                        new List<string> {
-                            "Vendredi",
-                            "Chef 5",
-                            "Végé 5"
+                        new MenuInfo {
+                            Date = DateTime.Parse("2022-09-22"),
+                            Day = "Jeudi",
+                            Chef = "Chef 4",
+                            Vegetarian = "Végé 4"
+                        },
+                        new MenuInfo {
+                            Date = DateTime.Parse("2022-09-23"),
+                            Day = "Vendredi",
+                            Chef = "Chef 5",
+                            Vegetarian = "Végé 5"
                         }
                     }
 
@@ -90,37 +92,39 @@ namespace UnitTests.Functions.Domain.Services
             {
                 new Menu() {
                     WeekInfo = new WeekInfo() {
-                        DayStart = "19",
-                        MonthStart = "09",
-                        DayEnd = "25",
-                        MonthEnd = "09",
-                        Year = "2022"
-                    },
-                    MenuDetails = new List<List<string>> {
-                        new List<string> {
-                            "Lundi",
-                            "Chef 1",
-                            "Végé 1"
+                        StartDate = DateTime.Parse("2022-09-19"),
+                        EndDate = DateTime.Parse("2022-09-25")
                         },
-                        new List<string> {
-                            "Mardi",
-                            "Chef 2",
-                            "Végé 2"
+                    MenuInfos = new List<MenuInfo> {
+                        new MenuInfo {
+                            Date = DateTime.Parse("2022-09-19"),
+                            Day = "Lundi",
+                            Chef = "Chef 1",
+                            Vegetarian = "Végé 1"
                         },
-                        new List<string> {
-                            "Mercredi",
-                            "Chef 3",
-                            "Végé 3"
+                        new MenuInfo {
+                            Date = DateTime.Parse("2022-09-20"),
+                            Day = "Mardi",
+                            Chef = "Chef 2",
+                            Vegetarian = "Végé 2"
                         },
-                        new List<string> {
-                            "Jeudi",
-                            "Chef 4",
-                            "Végé 4"
+                        new MenuInfo {
+                            Date = DateTime.Parse("2022-09-21"),
+                            Day = "Mercredi",
+                            Chef = "Chef 3",
+                            Vegetarian = "Végé 3"
                         },
-                        new List<string> {
-                            "Vendredi",
-                            "Chef 5",
-                            "Végé 5"
+                        new MenuInfo {
+                            Date = DateTime.Parse("2022-09-22"),
+                            Day = "Jeudi",
+                            Chef = "Chef 4",
+                            Vegetarian = "Végé 4"
+                        },
+                        new MenuInfo {
+                            Date = DateTime.Parse("2022-09-23"),
+                            Day = "Vendredi",
+                            Chef = "Chef 5",
+                            Vegetarian = "Végé 5"
                         }
                     }
 
