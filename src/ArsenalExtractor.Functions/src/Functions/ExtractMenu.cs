@@ -18,6 +18,7 @@ namespace ArsenalExtractor.Functions
             databaseName: "arsenal",
             collectionName: "menus",
             ConnectionStringSetting = "CosmosDbConnectionString")]
+        // At 10:00, only on Saturday
         public async Task<Menu> Run([TimerTrigger("0 0 10 * * 6")] MyInfo myTimer, FunctionContext executionContext)
         {
             var logger = executionContext.GetLogger("ExtractMenu");
