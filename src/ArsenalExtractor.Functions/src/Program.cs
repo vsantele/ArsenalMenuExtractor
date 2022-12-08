@@ -10,9 +10,7 @@ using Microsoft.Extensions.Hosting;
 
 
 var host = new HostBuilder()
-.ConfigureFunctionsWorkerDefaults(builder =>
-{
-})
+.ConfigureFunctionsWorkerDefaults()
 .ConfigureServices(s =>
     {
         s.AddOptions<AzureFormRecognizer>().Configure<IConfiguration>((settings, configuration) => configuration.GetSection("AzureFormRecognizer").Bind(settings));

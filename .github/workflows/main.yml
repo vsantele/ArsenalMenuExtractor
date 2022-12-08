@@ -10,7 +10,7 @@ on:
 
 env:
   AZURE_FUNCTIONAPP_NAME: arsenalextractor-2209-func # set this to your application's name
-  DOTNET_VERSION: "6.0.401" # set this to the dotnet version to use
+  DOTNET_VERSION: "7.0.100" # set this to the dotnet version to use
 
 jobs:
   build-and-test:
