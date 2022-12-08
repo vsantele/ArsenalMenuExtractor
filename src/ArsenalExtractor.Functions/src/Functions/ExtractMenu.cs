@@ -15,7 +15,7 @@ namespace ArsenalExtractor.Functions
 
         [Function("ExtractMenu")]
         [CosmosDBOutput(
-            databaseName: "arsenal",
+            databaseName: "%CosmosDBDatabaseName%",
             collectionName: "menus",
             ConnectionStringSetting = "CosmosDbConnectionString")]
         // At 10:00, only on Saturday
