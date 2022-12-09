@@ -51,11 +51,20 @@
       "type": "func",
       "dependsOn": "build (functions)",
       "options": {
-        "cwd": "${workspaceFolder}/src/ArsenalExtractor.Functions/src/bin/Debug/net7.0"
+        "cwd": "${workspaceFolder}/src/ArsenalExtractor.Functions/src/"
       },
       "command": "host start",
       "isBackground": true,
       "problemMatcher": "$func-dotnet-watch"
+    },
+    {
+      "type": "process",
+      "label": "Run Github Actions (local)",
+      "command": "act",
+      "args": ["--artifact-server-path", ".act"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
     }
   ]
 }
