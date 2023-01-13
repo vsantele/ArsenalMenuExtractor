@@ -55,9 +55,8 @@ namespace UnitTests.Functions.Domain.Services
                 }
             };
 
-            var dateHelper = new DateHelper();
 
-            var sut = new CalendarMaker(dateHelper);
+            var sut = new CalendarMaker();
 
             //act
             var result = sut.GenerateICal(menusInput);
@@ -133,9 +132,8 @@ namespace UnitTests.Functions.Domain.Services
                 }
             };
 
-            var dateHelper = new DateHelper();
 
-            var sut = new CalendarMaker(dateHelper);
+            var sut = new CalendarMaker();
 
             //act
             var result = sut.GenerateICal(menusInput, "vege");
