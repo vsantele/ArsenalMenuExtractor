@@ -35,10 +35,13 @@ namespace ArsenalExtractor.Functions.Domain.Providers
             var imageLink = _htmlParser.GetImageLink(html);
             var menuDetails = await _formRecognition.ExtractMenuAsync(imageLink);
 
+            var startDate = _dateHelper.ConvertDate(weekInfoSrc.DayStart, weekInfoSrc.MonthStart, weekInfoSrc.Year);
+            var endDate = _dateHelper.ConvertDate(weekInfoSrc.DayEnd, weekInfoSrc.MonthEnd, weekInfoSrc.Year);
+
             var weekInfo = new WeekInfo
             {
-                StartDate = _dateHelper.ConvertDate(weekInfoSrc.DayStart, weekInfoSrc.MonthStart, weekInfoSrc.Year),
-                EndDate = _dateHelper.ConvertDate(weekInfoSrc.DayEnd, weekInfoSrc.MonthEnd, weekInfoSrc.Year)
+                StartDate = _dateHelper.BeginOfWeek(startDate),
+                EndDate = _dateHelper.EndOfWeek(endDate)
             };
 
             var menuInfos = new List<MenuInfo>();

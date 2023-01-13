@@ -9,6 +9,23 @@ namespace ArsenalExtractor.Functions.Domain.Helpers
             return DateTime.Parse($"{year}-{monthNumber}-{day}");
         }
 
+        public DateTime BeginOfWeek(DateTime date)
+        {
+            var dayOfWeek = (int)date.DayOfWeek;
+            return date.AddDays(1 - dayOfWeek);
+        }
+
+        public DateTime EndOfWeek(DateTime date)
+        {
+            var dayOfWeek = (int)date.DayOfWeek;
+            // If date is Sunday, we want to return the same date
+            if (dayOfWeek == 0)
+            {
+                dayOfWeek = 7;
+            }
+            return date.AddDays(7 - dayOfWeek);
+        }
+
         public string GetMonthNumber(string month)
         {
             month = month.ToLower();
