@@ -40,6 +40,7 @@ namespace ArsenalExtractor.Functions.Domain.Providers
 
             var weekInfo = new WeekInfo
             {
+                WeekNumber = int.Parse(weekInfoSrc.WeekNumber),
                 StartDate = _dateHelper.BeginOfWeek(startDate),
                 EndDate = _dateHelper.EndOfWeek(endDate)
             };
@@ -52,7 +53,7 @@ namespace ArsenalExtractor.Functions.Domain.Providers
 
             return new Menu
             {
-                Id = weekInfoSrc.WeekNumber,
+                Id = $"{weekInfo.StartDate.Year}-{weekInfoSrc.WeekNumber}",
                 WeekInfo = weekInfo,
                 MenuInfos = menuInfos
             };

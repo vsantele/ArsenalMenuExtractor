@@ -15,6 +15,7 @@ namespace UnitTests.Functions.Domain.Services
             {
                 new Menu() {
                     WeekInfo = new WeekInfo() {
+                        WeekNumber = 38,
                         StartDate = DateTime.Parse("2022-09-19"),
                         EndDate = DateTime.Parse("2022-09-25")
                         },
@@ -92,6 +93,7 @@ namespace UnitTests.Functions.Domain.Services
             {
                 new Menu() {
                     WeekInfo = new WeekInfo() {
+                        WeekNumber = 38,
                         StartDate = DateTime.Parse("2022-09-19"),
                         EndDate = DateTime.Parse("2022-09-25")
                         },
