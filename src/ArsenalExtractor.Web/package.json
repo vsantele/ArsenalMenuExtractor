@@ -1,0 +1,24 @@
+{
+  "name": "arsenal-menu-extractor",
+  "description": "Website to present Arsenal's menu extrator to have it in your calendar",
+  "version": "1.0.0",
+  "author": "Victor Santelé",
+  "homepage": "",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^0.16.0",
+    "accessible-astro-components": "^1.6.2",
+    "astro-analytics": "^2.6.0",
+    "astro-icon": "^0.8.0"
+  },
+  "devDependencies": {
+    "astro": "^2.0.5",
+    "sass": "^1.58.0"
+  },
+  "packageManager": "yarn@3.3.1"
+}

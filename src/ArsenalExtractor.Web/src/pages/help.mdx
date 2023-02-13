@@ -1,0 +1,48 @@
+---
+layout: ../layouts/HelpLayout.astro
+title: Aide
+---
+
+import { url as Api } from "../configs/calendar.js"
+export const ApiLink = Api
+
+## Comment ajouter les menus dans mon calendrier ?
+
+- [Comment ajouter les menus dans mon calendrier ?](#comment-ajouter-les-menus-dans-mon-calendrier-)
+  - [Google Calendar](#google-calendar)
+    - [Web](#web)
+    - [Mobile](#mobile)
+  - [Outlook](#outlook)
+    - [Web](#web-1)
+
+### Google Calendar
+
+#### Web
+
+1. Connectez-vous à votre compte [Google Calendar](https://calendar.google.com/)
+2. Cliquez sur `+` à côté du menu "Autres agendas"
+3. Cliquez sur "À partir de l'URL"
+4. Collez l'URL suivante dans le champ "URL de l'agenda" : {ApiLink}
+
+#### Mobile
+
+L'ajout d'un agenda depuis une url n'est pas possible sur l'application mobile de Google Agenda. Il faut passer par un navigateur web sur un ordinateur.
+
+Ensuite, pour le voir sur votre application, il faut le rendre sur l'application mobile.
+
+1. Ouvrez l'application Google Agenda
+2. Cliquez sur le menu en haut à gauche
+3. Sous le compte où vous avez ajouter le calendrier, cliquez sur "Plus d'agendas"
+4. Cochez le calendrier que vous avez ajouté.
+
+### Outlook
+
+#### Web
+
+1. Connectez-vous à votre compte [Outlook](https://outlook.live.com/) (ou [Office 365](https://outlook.office.com/))
+2. Cliquez sur "Ajouter un calendrier"
+3. Cliquez sur "S'abonner à partir du web"
+4. Collez l'URL suivante dans le champ "URL du calendrier" : {ApiLink}
+5. Nommez votre calendrier.
+6. Complétez les autres champs si vous le souhaitez.
+7. Cliquez sur "Importer"

@@ -1,0 +1,41 @@
+---
+import { SkipLinks } from 'accessible-astro-components';
+import { Icon } from "astro-icon";
+import Navigation from '../components/Navigation.astro';
+---
+
+<header>
+  <SkipLinks />
+  <Navigation>
+    <li class="menu-item">
+      <a href="/">Home</a>
+    </li>
+    <li class="menu-item">
+      <a href="/help">Aide</a>
+    </li>
+    <li class="menu-item">
+      <a href="https://github.com/vsantele/ArsenalMenuExtractor" title="external link" rel="external noopener noreferrer"><Icon name="mdi:github" style="height: 1.8em; display:inline"/></a>
+    </li>
+  </Navigation>
+</header>
+
+<style lang="scss">
+  @use '../assets/scss/base/breakpoint' as *;
+
+  .container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+
+    @include breakpoint(medium) {
+      flex-wrap: nowrap;
+    }
+
+    img {
+      max-height: 40px;
+    }
+  }
+</style>
