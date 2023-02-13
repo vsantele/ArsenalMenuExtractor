@@ -16,8 +16,8 @@ namespace ArsenalExtractor.Functions
         [Function("ExtractMenu")]
         [CosmosDBOutput(
             databaseName: "%CosmosDBDatabaseName%",
-            collectionName: "menus",
-            ConnectionStringSetting = "CosmosDbConnectionString")]
+            containerName: "menus",
+            Connection = "CosmosDbConnectionString")]
         // At 10:00, only on Saturday
         public async Task<Menu> Run([TimerTrigger("0 0 10 * * 6")] MyInfo myTimer, FunctionContext executionContext)
         {
