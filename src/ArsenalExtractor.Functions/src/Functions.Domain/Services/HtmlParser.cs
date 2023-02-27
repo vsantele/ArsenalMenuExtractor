@@ -27,17 +27,18 @@ namespace ArsenalExtractor.Functions.Domain.Services
             var weekTitle = htmlDoc.DocumentNode.Descendants("div")
                 .Where(node => node.GetAttributeValue("id", "").Contains("content-core"))
                 .First().Descendants("h2").First().InnerText;
-            var regex = @"MENU DE LA SEMAINE (?:#)(\d+) \| DU (\d+)((?: )(\w+))? au (\d+) (\w+) (\d+)";
+            var regex = @"MENU DE LA SEMAINE (?:#)(?<weekNumber>\d+) \| DU (?<start>(\d{2}\/\d{2}(?:\/\d{2,4})?)) au (?<end>(\d{2}\/\d{2}(?:\/\d{2,4})?))";
             var rg = new Regex(regex, RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
             var match = rg.Match(weekTitle);
-            var weekNumber = match.Groups[1].Value;
-            var dayStart = match.Groups[2].Value;
-            var monthStart = match.Groups[4].Value;
-            var dayEnd = match.Groups[5].Value;
-            var monthEnd = match.Groups[6].Value;
-            var year = match.Groups[7].Value;
-
+            var start = match.Groups["start"].Value.Split('/');
+            var end = match.Groups["end"].Value.Split('/');
+            var weekNumber = match.Groups["weekNumber"].Value;
+            var dayStart = start[0];
+            var monthStart = start[1];
+            var dayEnd = end[0];
+            var monthEnd = end[1];
+            var year = start.Length == 3 ? start[2] : end.Length == 3 ? end[2] : DateTime.Now.Year.ToString();
             if (monthStart == "") monthStart = monthEnd;
 
             return new WeekInfoSrc
