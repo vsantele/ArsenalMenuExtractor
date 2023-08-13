@@ -1,7 +1,7 @@
 ---
-import DefaultLayout from '../layouts/DefaultLayout.astro';
+import DefaultLayout from "../layouts/DefaultLayout.astro"
 
-import { url as ApiLink } from "../configs/calendar";
+import { url as ApiLink } from "../configs/calendar"
 ---
 
 <style>
@@ -13,40 +13,52 @@ import { url as ApiLink } from "../configs/calendar";
 </style>
 
 <script>
-  const copyUrl = document.getElementById('copyUrl');
-  const copyUrlText = document.getElementById('url');
-  copyUrl.addEventListener('click', async () => {
+  const copyUrl = document.getElementById("copyUrl")
+  const copyUrlText = document.getElementById("url")
+  if (!copyUrl || !copyUrlText) {
+    throw new Error("Element not found")
+  }
+  copyUrl.addEventListener("click", async () => {
     try {
-      await navigator.clipboard.writeText(copyUrlText.innerText);
-      updateButton('Copié!', '#4CAF50')
+      await navigator.clipboard.writeText(copyUrlText.innerText)
+      updateButton("Copié!", "#4CAF50")
     } catch (error) {
-      let text = 'Erreur inconnue';
-      const color = '#f44336';
-      if (error.name === 'NotAllowedError') {
-        text = 'Accès au presse-papier refusé';
-      } else if (error.name === 'NotSupportedError') {
-        text = 'Presse-papier non supporté';
+      let text = "Erreur inconnue"
+      const color = "#f44336"
+      if (error instanceof DOMException) {
+        if (error.name === "NotAllowedError") {
+          text = "Accès au presse-papier refusé"
+        } else if (error.name === "NotSupportedError") {
+          text = "Presse-papier non supporté"
+        }
+      } else if (error instanceof Error) {
+        text = error.message
+      } else {
+        text = "Erreur inconnue"
       }
-      updateButton(text, color);
+      updateButton(text, color)
     }
-  });
+  })
 
-  function updateButton(text, color) {
-    const originalText = copyUrl.innerText;
-    copyUrl.innerText = text;
-    copyUrl.style.backgroundColor = color;
+  function updateButton(text: string, color: string) {
+    if (!copyUrl) {
+      throw new Error("Element not found")
+    }
+    const originalText = copyUrl.innerText
+    copyUrl.innerText = text
+    copyUrl.style.backgroundColor = color
 
     setTimeout(() => {
-          copyUrl.style.backgroundColor = '';
-          copyUrl.innerText = originalText;
-        }, 1000);
+      copyUrl.style.backgroundColor = ""
+      copyUrl.innerText = originalText
+    }, 1000)
   }
 </script>
 
 <DefaultLayout title="Acceuil">
   <section class="margin-48">
     <div class="container">
-      <h1>Arsenal Menu Extractor</h1><br>
+      <h1>Arsenal Menu Extractor</h1><br />
       <h2>Vos menus directement dans votre calendrier préféré</h2>
     </div>
   </section>
@@ -55,26 +67,44 @@ import { url as ApiLink } from "../configs/calendar";
       <h2 class="margin-16 bottom">Comment ça marche?</h2>
     </div>
     <div class="container" data-auto-grid="3">
-      <div class="text-neutral-100 bg-neutral-900 space-32 radius-large elevation-500" data-animation="fade-in">
+      <div
+        class="text-neutral-100 bg-neutral-900 space-32 radius-large elevation-500"
+        data-animation="fade-in"
+      >
         <h3>Copie l'url</h3>
-        <p>Le calendrier se met à jour chaque semaine. Copie l'url menant au calendrier avoir les mises à jour </p>
+        <p>
+          Le calendrier se met à jour chaque semaine. Copie l'url menant au
+          calendrier avoir les mises à jour
+        </p>
       </div>
-      <div class="text-neutral-100 bg-neutral-900 space-32 radius-large elevation-500" data-animation="fade-in"
-        data-animation-delay="0.25s">
+      <div
+        class="text-neutral-100 bg-neutral-900 space-32 radius-large elevation-500"
+        data-animation="fade-in"
+        data-animation-delay="0.25s"
+      >
         <h3>Choisi ton calendrier</h3>
-        <p>Que ce soit Google Caledar, Outlook, celui par défaut sur ton pc ou ton téléphone.</p>
+        <p>
+          Que ce soit Google Caledar, Outlook, celui par défaut sur ton pc ou
+          ton téléphone.
+        </p>
       </div>
-      <div class="text-neutral-100 bg-neutral-900 space-32 radius-large elevation-500" data-animation="fade-in"
-        data-animation-delay="0.5s">
+      <div
+        class="text-neutral-100 bg-neutral-900 space-32 radius-large elevation-500"
+        data-animation="fade-in"
+        data-animation-delay="0.5s"
+      >
         <h3>Ajoute les menus</h3>
-        <p>Ajoute un nouveau calendrier sur base d'un lien (URL). La méthode change suivant l'app, tu trouveras plus
-          d'informations dans la page d'aide <a href="/help">ici</a>.</p>
+        <p>
+          Ajoute un nouveau calendrier sur base d'un lien (URL). La méthode
+          change suivant l'app, tu trouveras plus d'informations dans la page
+          d'aide <a href="/help">ici</a>.
+        </p>
       </div>
     </div>
     <div class="container margin-16 top">
-      <button id="copyUrl" class="button">Copier le lien </button>&nbsp;
+      <button id="copyUrl" class="button">Copier le lien</button>&nbsp;
       <!-- generate Block of code with the link to the api and a button to copy the link with an indicator of sucess-->
-      <code id="url">{ApiLink} </code>
+      <code id="url">{ApiLink}</code>
     </div>
   </section>
   <section class="margin-64">
@@ -94,12 +124,20 @@ import { url as ApiLink } from "../configs/calendar";
         </div>
         <div class="small-12 medium-8 offset-medium-4 space-content">
           <h3>Main</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi mollitia alias sunt accusamus reiciendis
-            fuga delectus, repellendus molestiae dolore illo iusto eligendi eaque qui hic facilis assumenda! Velit,
-            minus, nobis. <strong><a href="#">And lastly tab to me</a></strong>.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi mollitia alias sunt accusamus reiciendis
-            fuga delectus, repellendus molestiae dolore illo iusto eligendi eaque qui hic facilis assumenda! Velit,
-            minus, nobis.</p>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi
+            mollitia alias sunt accusamus reiciendis fuga delectus, repellendus
+            molestiae dolore illo iusto eligendi eaque qui hic facilis
+            assumenda! Velit, minus, nobis. <strong
+              ><a href="#">And lastly tab to me</a></strong
+            >.
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi
+            mollitia alias sunt accusamus reiciendis fuga delectus, repellendus
+            molestiae dolore illo iusto eligendi eaque qui hic facilis
+            assumenda! Velit, minus, nobis.
+          </p>
         </div>
       </div>
     </div>
