@@ -27,17 +27,32 @@ namespace ArsenalExtractor.Functions.Domain.Services
             var weekTitle = htmlDoc.DocumentNode.Descendants("div")
                 .Where(node => node.GetAttributeValue("id", "").Contains("content-core"))
                 .First().Descendants("h2").First().InnerText;
-            var regex = @"MENU DE LA SEMAINE (?:#)(\d+) \| DU (\d+)((?: )(\w+))? au (\d+) (\w+) (\d+)";
+            var regex = @"MENU DE LA SEMAINE (?:#)(?<weekNumber>\d+) \| DU (?<start>((\d{2}\/\d{2}(?:\/\d{2,4})?))|((\d+)((?: )(\w+))?)) au (?<end>(\d{2}\/\d{2}(?:\/\d{2,4})?)|((\d+) (\w+) (\d+)))";
             var rg = new Regex(regex, RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
             var match = rg.Match(weekTitle);
-            var weekNumber = match.Groups[1].Value;
-            var dayStart = match.Groups[2].Value;
-            var monthStart = match.Groups[4].Value;
-            var dayEnd = match.Groups[5].Value;
-            var monthEnd = match.Groups[6].Value;
-            var year = match.Groups[7].Value;
-
+            string[] start;
+            var startGroup = match.Groups["start"].Value;
+            string[] end;
+            var endGroup = match.Groups["end"].Value;
+            if (startGroup.Contains('/'))
+            {
+                start = startGroup.Split("/");
+                end = endGroup.Split("/");
+            }
+            else
+            {
+                var startSplit = startGroup.Split(" ");
+                var endSplit = endGroup.Split(" ");
+                end = new string[] { endSplit[0], endSplit[1], endSplit[2] };
+                start = new string[] { startSplit[0], startSplit.Length >= 2 ? startSplit[1] : endSplit[1] };
+            }
+            var weekNumber = match.Groups["weekNumber"].Value;
+            var dayStart = start[0];
+            var monthStart = start[1];
+            var dayEnd = end[0];
+            var monthEnd = end[1];
+            var year = start.Length == 3 ? start[2] : end.Length == 3 ? end[2] : DateTime.Now.Year.ToString();
             if (monthStart == "") monthStart = monthEnd;
 
             return new WeekInfoSrc

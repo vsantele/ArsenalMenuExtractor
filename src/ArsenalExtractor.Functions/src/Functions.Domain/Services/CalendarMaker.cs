@@ -10,11 +10,9 @@ namespace ArsenalExtractor.Functions.Domain.Services
 {
     public class CalendarMaker : ICalendarMaker
     {
-        private readonly IDateHelper _dateHelper;
 
-        public CalendarMaker(IDateHelper dateHelper)
+        public CalendarMaker()
         {
-            _dateHelper = dateHelper;
         }
 
         public string GenerateICal(IEnumerable<Menu> menus)
@@ -30,8 +28,8 @@ namespace ArsenalExtractor.Functions.Domain.Services
                 var startWeek = menu.WeekInfo.StartDate;
                 foreach (var menuInfo in menu.MenuInfos)
                 {
-                    var start = menuInfo.Date.Add(new TimeSpan(12,0,0));
-                    var end = menuInfo.Date.Add(new TimeSpan(13,30,0));
+                    var start = menuInfo.Date.Add(new TimeSpan(12, 0, 0));
+                    var end = menuInfo.Date.Add(new TimeSpan(13, 30, 0));
                     var eventItem = new CalendarEvent
                     {
                         Start = new CalDateTime(start),

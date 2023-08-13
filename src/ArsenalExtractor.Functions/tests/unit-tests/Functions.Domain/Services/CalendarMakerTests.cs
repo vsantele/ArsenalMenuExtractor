@@ -15,6 +15,7 @@ namespace UnitTests.Functions.Domain.Services
             {
                 new Menu() {
                     WeekInfo = new WeekInfo() {
+                        WeekNumber = 38,
                         StartDate = DateTime.Parse("2022-09-19"),
                         EndDate = DateTime.Parse("2022-09-25")
                         },
@@ -54,9 +55,8 @@ namespace UnitTests.Functions.Domain.Services
                 }
             };
 
-            var dateHelper = new DateHelper();
 
-            var sut = new CalendarMaker(dateHelper);
+            var sut = new CalendarMaker();
 
             //act
             var result = sut.GenerateICal(menusInput);
@@ -92,6 +92,7 @@ namespace UnitTests.Functions.Domain.Services
             {
                 new Menu() {
                     WeekInfo = new WeekInfo() {
+                        WeekNumber = 38,
                         StartDate = DateTime.Parse("2022-09-19"),
                         EndDate = DateTime.Parse("2022-09-25")
                         },
@@ -131,9 +132,8 @@ namespace UnitTests.Functions.Domain.Services
                 }
             };
 
-            var dateHelper = new DateHelper();
 
-            var sut = new CalendarMaker(dateHelper);
+            var sut = new CalendarMaker();
 
             //act
             var result = sut.GenerateICal(menusInput, "vege");

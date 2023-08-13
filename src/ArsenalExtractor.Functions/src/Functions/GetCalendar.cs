@@ -19,9 +19,9 @@ namespace ArsenalExtractor.Functions
         public HttpResponseData Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequestData req,
              [CosmosDBInput(
-                databaseName: "arsenal",
-                collectionName: "menus",
-                ConnectionStringSetting = "CosmosDbConnectionString",
+                databaseName: "%CosmosDBDatabaseName%",
+                containerName: "menus",
+                Connection = "CosmosDbConnectionString",
                 SqlQuery = "SELECT top 2 * FROM c order by c._ts desc")]
                 IEnumerable<Menu> menus)
         {

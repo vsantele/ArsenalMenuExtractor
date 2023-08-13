@@ -29,13 +29,7 @@
     {
       "label": "clean release (functions)",
       "command": "dotnet",
-      "args": [
-        "clean",
-        "--configuration",
-        "Release",
-        "/property:GenerateFullPaths=true",
-        "/consoleloggerparameters:NoSummary"
-      ],
+      "args": ["clean", "--configuration", "Release", "/property:GenerateFullPaths=true", "/consoleloggerparameters:NoSummary"],
       "type": "process",
       "problemMatcher": "$msCompile",
       "options": {
@@ -45,13 +39,7 @@
     {
       "label": "publish (functions)",
       "command": "dotnet",
-      "args": [
-        "publish",
-        "--configuration",
-        "Release",
-        "/property:GenerateFullPaths=true",
-        "/consoleloggerparameters:NoSummary"
-      ],
+      "args": ["publish", "--configuration", "Release", "/property:GenerateFullPaths=true", "/consoleloggerparameters:NoSummary"],
       "type": "process",
       "dependsOn": "clean release (functions)",
       "problemMatcher": "$msCompile",
@@ -63,11 +51,20 @@
       "type": "func",
       "dependsOn": "build (functions)",
       "options": {
-        "cwd": "${workspaceFolder}/src/ArsenalExtractor.Functions/src/bin/Debug/net6.0"
+        "cwd": "${workspaceFolder}/src/ArsenalExtractor.Functions/src/"
       },
       "command": "host start",
       "isBackground": true,
       "problemMatcher": "$func-dotnet-watch"
+    },
+    {
+      "type": "process",
+      "label": "Run Github Actions (local)",
+      "command": "act",
+      "args": ["--artifact-server-path", ".act"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
     }
   ]
 }

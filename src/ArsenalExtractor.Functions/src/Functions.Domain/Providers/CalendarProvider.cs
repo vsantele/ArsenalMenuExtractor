@@ -35,10 +35,14 @@ namespace ArsenalExtractor.Functions.Domain.Providers
             var imageLink = _htmlParser.GetImageLink(html);
             var menuDetails = await _formRecognition.ExtractMenuAsync(imageLink);
 
+            var startDate = _dateHelper.ConvertDate(weekInfoSrc.DayStart, weekInfoSrc.MonthStart, weekInfoSrc.Year);
+            var endDate = _dateHelper.ConvertDate(weekInfoSrc.DayEnd, weekInfoSrc.MonthEnd, weekInfoSrc.Year);
+
             var weekInfo = new WeekInfo
             {
-                StartDate = _dateHelper.ConvertDate(weekInfoSrc.DayStart, weekInfoSrc.MonthStart, weekInfoSrc.Year),
-                EndDate = _dateHelper.ConvertDate(weekInfoSrc.DayEnd, weekInfoSrc.MonthEnd, weekInfoSrc.Year)
+                WeekNumber = int.Parse(weekInfoSrc.WeekNumber),
+                StartDate = _dateHelper.BeginOfWeek(startDate),
+                EndDate = _dateHelper.EndOfWeek(endDate)
             };
 
             var menuInfos = new List<MenuInfo>();
@@ -49,7 +53,7 @@ namespace ArsenalExtractor.Functions.Domain.Providers
 
             return new Menu
             {
-                Id = weekInfoSrc.WeekNumber,
+                Id = $"{weekInfo.StartDate.Year}-{weekInfoSrc.WeekNumber}",
                 WeekInfo = weekInfo,
                 MenuInfos = menuInfos
             };

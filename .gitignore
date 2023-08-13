@@ -263,7 +263,5 @@ paket-files/
 __pycache__/
 *.pyc
 
-__azurite_*
-__blobstorage__
-__queuestorage__
-__tablestorage__
+.azurite
+.act
