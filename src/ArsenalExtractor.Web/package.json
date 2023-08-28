@@ -5,6 +5,7 @@
   "author": "Victor Santelé",
   "homepage": "",
   "scripts": {
+    "prepare": "panda codegen",
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
@@ -19,6 +20,8 @@
   },
   "devDependencies": {
     "@astrojs/ts-plugin": "^1.1.1",
+    "@pandacss/astro": "^0.13.0",
+    "@pandacss/dev": "^0.13.0",
     "astro": "^2.10.7",
     "sass": "^1.65.1",
     "typescript": "5.1.6"
