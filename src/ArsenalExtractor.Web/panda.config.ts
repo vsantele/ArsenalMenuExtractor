@@ -4,6 +4,7 @@ export default defineConfig({
   // Whether to use css reset
   preflight: true,
 
+  presets: ["@pandacss/dev/presets", "@park-ui/presets"],
   // Where to look for your css declarations
   include: [
     "./src/**/*.{js,jsx,ts,tsx,astro}",

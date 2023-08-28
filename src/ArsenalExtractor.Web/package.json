@@ -12,8 +12,10 @@
     "preview": "astro preview"
   },
   "dependencies": {
+    "@ark-ui/react": "^0.13.1",
     "@astrojs/mdx": "^0.19.7",
     "@astrojs/sitemap": "^2.0.1",
+    "@park-ui/presets": "^0.8.1",
     "accessible-astro-components": "^2.1.2",
     "astro-analytics": "^2.6.0",
     "astro-icon": "^0.8.1"
