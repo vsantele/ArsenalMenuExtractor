@@ -20,7 +20,7 @@ If you want to select the menu for the summary, you can add the `?menu={yourMenu
 
 - `vege`: Vegetarian menu
 - `day`: Day menu
-- `chef`: Chef menu
+- `soup`: Soup of the day
 
 Example: `https://arsenalextractor-2209-func.azurewebsites.net/api/getcalendar?menu=vege` will show the vegetarian menu in the summary of the event.
 

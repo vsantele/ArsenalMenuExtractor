@@ -52,8 +52,8 @@ namespace ArsenalExtractor.Functions.Domain.Services
         {
             var description = "";
             description += "Jour: " + menu.Day + "\\n";
-            description += "Chef: " + menu.Chef + "\\n";
-            description += "Végé: " + menu.Vegetarian;
+            description += "Végé: " + menu.Vegetarian + "\\n";
+            description += "Soup: " + menu.Soup;
             return description;
         }
 
@@ -61,10 +61,9 @@ namespace ArsenalExtractor.Functions.Domain.Services
         {
             return favMenu switch
             {
-                "day" => menu.Day,
-                "chef" => menu.Chef,
+                "soup" => menu.Soup,
                 "vege" => menu.Vegetarian,
-                _ => menu.Day
+                "day" or _ => menu.Day
             };
         }
     }

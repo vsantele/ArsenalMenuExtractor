@@ -23,31 +23,31 @@ namespace UnitTests.Functions.Domain.Services
                         new MenuInfo {
                             Date = DateTime.Parse("2022-09-19"),
                             Day = "Lundi",
-                            Chef = "Chef 1",
+                            Soup = "Soup 1",
                             Vegetarian = "Végé 1"
                         },
                         new MenuInfo {
                             Date = DateTime.Parse("2022-09-20"),
                             Day = "Mardi",
-                            Chef = "Chef 2",
+                            Soup = "Soup 2",
                             Vegetarian = "Végé 2"
                         },
                         new MenuInfo {
                             Date = DateTime.Parse("2022-09-21"),
                             Day = "Mercredi",
-                            Chef = "Chef 3",
+                            Soup = "Soup 3",
                             Vegetarian = "Végé 3"
                         },
                         new MenuInfo {
                             Date = DateTime.Parse("2022-09-22"),
                             Day = "Jeudi",
-                            Chef = "Chef 4",
+                            Soup = "Soup 4",
                             Vegetarian = "Végé 4"
                         },
                         new MenuInfo {
                             Date = DateTime.Parse("2022-09-23"),
                             Day = "Vendredi",
-                            Chef = "Chef 5",
+                            Soup = "Soup 5",
                             Vegetarian = "Végé 5"
                         }
                     }
@@ -77,11 +77,11 @@ namespace UnitTests.Functions.Domain.Services
             Assert.Contains("SUMMARY:Mercredi", result);
             Assert.Contains("SUMMARY:Jeudi", result);
             Assert.Contains("SUMMARY:Vendredi", result);
-            Assert.Contains("DESCRIPTION:Jour: Lundi\\nChef: Chef 1\\nVégé: Végé 1", result);
-            Assert.Contains("DESCRIPTION:Jour: Mardi\\nChef: Chef 2\\nVégé: Végé 2", result);
-            Assert.Contains("DESCRIPTION:Jour: Mercredi\\nChef: Chef 3\\nVégé: Végé 3", result);
-            Assert.Contains("DESCRIPTION:Jour: Jeudi\\nChef: Chef 4\\nVégé: Végé 4", result);
-            Assert.Contains("DESCRIPTION:Jour: Vendredi\\nChef: Chef 5\\nVégé: Végé 5", result);
+            Assert.Contains("DESCRIPTION:Jour: Lundi\\nVégé: Végé 1\\nSoup: Soup 1", result);
+            Assert.Contains("DESCRIPTION:Jour: Mardi\\nVégé: Végé 2\\nSoup: Soup 2", result);
+            Assert.Contains("DESCRIPTION:Jour: Mercredi\\nVégé: Végé 3\\nSoup: Soup 3", result);
+            Assert.Contains("DESCRIPTION:Jour: Jeudi\\nVégé: Végé 4\\nSoup: Soup 4", result);
+            Assert.Contains("DESCRIPTION:Jour: Vendredi\\nVégé: Végé 5\\nSoup: Soup 5", result);
 
         }
         [Fact]
@@ -100,31 +100,31 @@ namespace UnitTests.Functions.Domain.Services
                         new MenuInfo {
                             Date = DateTime.Parse("2022-09-19"),
                             Day = "Lundi",
-                            Chef = "Chef 1",
+                            Soup = "Soup 1",
                             Vegetarian = "Végé 1"
                         },
                         new MenuInfo {
                             Date = DateTime.Parse("2022-09-20"),
                             Day = "Mardi",
-                            Chef = "Chef 2",
+                            Soup = "Soup 2",
                             Vegetarian = "Végé 2"
                         },
                         new MenuInfo {
                             Date = DateTime.Parse("2022-09-21"),
                             Day = "Mercredi",
-                            Chef = "Chef 3",
+                            Soup = "Soup 3",
                             Vegetarian = "Végé 3"
                         },
                         new MenuInfo {
                             Date = DateTime.Parse("2022-09-22"),
                             Day = "Jeudi",
-                            Chef = "Chef 4",
+                            Soup = "Soup 4",
                             Vegetarian = "Végé 4"
                         },
                         new MenuInfo {
                             Date = DateTime.Parse("2022-09-23"),
                             Day = "Vendredi",
-                            Chef = "Chef 5",
+                            Soup = "Soup 5",
                             Vegetarian = "Végé 5"
                         }
                     }
