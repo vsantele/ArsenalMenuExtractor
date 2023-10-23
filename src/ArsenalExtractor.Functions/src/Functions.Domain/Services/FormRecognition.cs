@@ -8,6 +8,7 @@ namespace ArsenalExtractor.Functions.Domain.Services
     public class FormRecognition : IFormRecognition
     {
         private readonly DocumentAnalysisClient _client;
+        private readonly string _modelId;
 
         public FormRecognition(IOptions<AzureFormRecognizer> options)
         {
@@ -16,20 +17,21 @@ namespace ArsenalExtractor.Functions.Domain.Services
             var credential = new AzureKeyCredential(apiKey);
             var client = new DocumentAnalysisClient(new Uri(endpoint), credential);
             _client = client;
+            _modelId = options.Value.ModelId;
         }
 
         public async Task<List<List<string>>> ExtractMenuAsync(string imageUrl)
         {
             Uri fileUri = new(imageUrl);
 
-            AnalyzeDocumentOperation operation = await _client.AnalyzeDocumentFromUriAsync(WaitUntil.Completed, "menuByLabel", fileUri);
+            AnalyzeDocumentOperation operation = await _client.AnalyzeDocumentFromUriAsync(WaitUntil.Completed, _modelId, fileUri);
             AnalyzeResult result = operation.Value;
 
             var menu = new List<List<string>>();
 
             var defaultMenu = "Pas de menu disponible";
 
-            var document = result.Documents.Where(d => d.DocumentType == "menuByLabel:menuByLabel").FirstOrDefault();
+            var document = result.Documents.Where(d => d.DocumentType == $"{_modelId}:{_modelId}").FirstOrDefault();
             if (document == null)
             {
                 throw new Exception("No document found");
