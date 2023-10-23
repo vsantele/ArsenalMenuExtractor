@@ -75,7 +75,7 @@ namespace ArsenalExtractor.Functions.Domain.Providers
             return favMenu switch
             {
                 "vegetarian" or "vege" or "vegé" or "vegétarien" => "vege",
-                "chef" => "chef",
+                "soup" or "soupe" => "soup",
                 "day" or "jour" or _ => "day",
             };
         }
@@ -86,8 +86,8 @@ namespace ArsenalExtractor.Functions.Domain.Providers
             {
                 Date = startDate.AddDays(indexDay),
                 Day = menu[0],
-                Chef = menu[1],
-                Vegetarian = menu[2]
+                Vegetarian = menu[1],
+                Soup = menu[2],
             };
         }
 
