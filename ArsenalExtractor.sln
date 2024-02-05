@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7D17A37E-9C50-467E-9E33-87C52B17B0CF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ArsenalExtractor.Functions", "ArsenalExtractor.Functions", "{74A39D6B-0749-4F6E-8AB0-6D46A7EF7CF5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArsenalExtractor", "src\ArsenalExtractor.Functions\src\ArsenalExtractor.csproj", "{83AD8E19-E3DE-4A33-8660-4D5A509ED635}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{C863EC07-0686-403C-A087-DEBEA3E3991E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "unit-tests", "src\ArsenalExtractor.Functions\tests\unit-tests\unit-tests.csproj", "{56EA6DAE-1E56-4FBC-9E1F-C1D8130AA25F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{83AD8E19-E3DE-4A33-8660-4D5A509ED635}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83AD8E19-E3DE-4A33-8660-4D5A509ED635}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83AD8E19-E3DE-4A33-8660-4D5A509ED635}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83AD8E19-E3DE-4A33-8660-4D5A509ED635}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56EA6DAE-1E56-4FBC-9E1F-C1D8130AA25F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56EA6DAE-1E56-4FBC-9E1F-C1D8130AA25F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56EA6DAE-1E56-4FBC-9E1F-C1D8130AA25F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56EA6DAE-1E56-4FBC-9E1F-C1D8130AA25F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{74A39D6B-0749-4F6E-8AB0-6D46A7EF7CF5} = {7D17A37E-9C50-467E-9E33-87C52B17B0CF}
+		{83AD8E19-E3DE-4A33-8660-4D5A509ED635} = {74A39D6B-0749-4F6E-8AB0-6D46A7EF7CF5}
+		{C863EC07-0686-403C-A087-DEBEA3E3991E} = {74A39D6B-0749-4F6E-8AB0-6D46A7EF7CF5}
+		{56EA6DAE-1E56-4FBC-9E1F-C1D8130AA25F} = {C863EC07-0686-403C-A087-DEBEA3E3991E}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {72688830-FAEB-40ED-ABF2-773C0108C96D}
+	EndGlobalSection
+EndGlobal

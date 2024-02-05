@@ -19,6 +19,7 @@ namespace ArsenalExtractor.Functions.Domain.Services
             var credential = new AzureKeyCredential(apiKey);
             var client = new DocumentAnalysisClient(new Uri(endpoint), credential);
             _client = client;
+            _modelId = options.Value.ModelId;
         }
 
         public async Task<List<List<string>>> ExtractMenuAsync(string imageUrl)
@@ -43,22 +44,22 @@ namespace ArsenalExtractor.Functions.Domain.Services
             var dayWednesday = fields["dayWednesday"].Content ?? defaultMenu;
             var dayThursday = fields["dayThursday"].Content ?? defaultMenu;
             var dayFriday = fields["dayFriday"].Content ?? defaultMenu;
-            var chefMonday = fields["chefMonday"].Content ?? defaultMenu;
-            var chefTuesday = fields["chefTuesday"].Content ?? defaultMenu;
-            var chefWednesday = fields["chefWednesday"].Content ?? defaultMenu;
-            var chefThursday = fields["chefThursday"].Content ?? defaultMenu;
-            var chefFriday = fields["chefFriday"].Content ?? defaultMenu;
             var vegeMonday = fields["vegeMonday"].Content ?? defaultMenu;
             var vegeTuesday = fields["vegeTuesday"].Content ?? defaultMenu;
             var vegeWednesday = fields["vegeWednesday"].Content ?? defaultMenu;
             var vegeThursday = fields["vegeThursday"].Content ?? defaultMenu;
             var vegeFriday = fields["vegeFriday"].Content ?? defaultMenu;
+            var soupMonday = fields["soupMonday"].Content ?? defaultMenu;
+            var soupTuesday = fields["soupTuesday"].Content ?? defaultMenu;
+            var soupWednesday = fields["soupWednesday"].Content ?? defaultMenu;
+            var soupThursday = fields["soupThursday"].Content ?? defaultMenu;
+            var soupFriday = fields["soupFriday"].Content ?? defaultMenu;
 
-            menu.Add(new List<string> { dayMonday, chefMonday, vegeMonday });
-            menu.Add(new List<string> { dayTuesday, chefTuesday, vegeTuesday });
-            menu.Add(new List<string> { dayWednesday, chefWednesday, vegeWednesday });
-            menu.Add(new List<string> { dayThursday, chefThursday, vegeThursday });
-            menu.Add(new List<string> { dayFriday, chefFriday, vegeFriday });
+            menu.Add(new List<string> { dayMonday, vegeMonday, soupMonday });
+            menu.Add(new List<string> { dayTuesday, vegeTuesday, soupTuesday });
+            menu.Add(new List<string> { dayWednesday, vegeWednesday, soupWednesday });
+            menu.Add(new List<string> { dayThursday, vegeThursday, soupThursday });
+            menu.Add(new List<string> { dayFriday, vegeFriday, soupFriday });
 
             return menu;
         }
