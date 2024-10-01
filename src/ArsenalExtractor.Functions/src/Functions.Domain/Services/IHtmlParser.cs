@@ -4,7 +4,7 @@ namespace ArsenalExtractor.Functions.Domain.Services
 {
     public interface IHtmlParser
     {
-        public WeekInfoSrc GetWeekInfo(string html);
+        public Task<WeekInfoSrc> GetWeekInfoAsync(string html);
         public string GetImageLink(string html);
     }
 }

@@ -14,12 +14,14 @@ var host = new HostBuilder()
 .ConfigureServices(s =>
     {
         s.AddOptions<AzureFormRecognizer>().Configure<IConfiguration>((settings, configuration) => configuration.GetSection("AzureFormRecognizer").Bind(settings));
+        s.AddOptions<AzureOpenAI>().Configure<IConfiguration>((settings, configuration) => configuration.GetSection("AzureOpenAI").Bind(settings));
         s.AddApplicationInsightsTelemetryWorkerService();
         s.AddScoped<ICalendarProvider, CalendarProvider>();
         s.AddScoped<ICalendarMaker, CalendarMaker>();
         s.AddScoped<IHtmlParser, HtmlParser>();
         s.AddScoped<IDateHelper, DateHelper>();
         s.AddScoped<IFormRecognition, FormRecognition>();
+        s.AddScoped<IOpenAiService, AzureOpenAiService>();
         s.AddHttpClient<UnamurHttpClient>();
         s.Configure<JsonSerializerOptions>(jsonSerializerOptions =>
             {

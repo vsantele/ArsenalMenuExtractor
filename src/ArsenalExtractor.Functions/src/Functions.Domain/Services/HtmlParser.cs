@@ -1,88 +1,45 @@
 using System.Globalization;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using ArsenalExtractor.Functions.Domain.Models;
 using HtmlAgilityPack;
 
 namespace ArsenalExtractor.Functions.Domain.Services
 {
-    public class HtmlParser : IHtmlParser
+    public class HtmlParser(IOpenAiService openAiService) : IHtmlParser
     {
-
-        public HtmlParser()
-        {
-        }
         public string GetImageLink(string html)
         {
             HtmlDocument htmlDoc = new();
             htmlDoc.LoadHtml(html);
-            var imageLink = htmlDoc.DocumentNode.Descendants("img")
-                .Where(node => node.GetAttributeValue("class", "").Contains("image-inline"))
-                .First().GetAttributeValue("src", "");
+            var imageNode = htmlDoc.DocumentNode.Descendants("img").Where(node => node.GetAttributeValue("src", "").Contains("rs-menus")).First() ?? throw new Exception("Image not found");
+            var imageLink = imageNode.GetAttributeValue("src", "") ?? throw new Exception("Image link not found");
+
             return imageLink;
         }
 
-        public WeekInfoSrc GetWeekInfo(string html)
+        async public Task<WeekInfoSrc> GetWeekInfoAsync(string html)
         {
             HtmlDocument htmlDoc = new();
             htmlDoc.LoadHtml(html);
-            var weekTitle = htmlDoc.DocumentNode.Descendants("div")
-                .Where(node => node.GetAttributeValue("id", "").Contains("content-core"))
-                .First().Descendants("h2").First().InnerText;
-            var regex = @"MENU DE LA SEMAINE (?:#)(?<weekNumber>\d+)";
-            var rg = new Regex(regex, RegexOptions.IgnoreCase | RegexOptions.Compiled);
+            var weekTitle = htmlDoc.DocumentNode.Descendants("div").Where(div => div.GetClasses().Contains("paragraph--type--image")).First()
+                .Descendants("h2").First().InnerText;
 
-            var match = rg.Match(weekTitle);
-            // string[] start;
-            // var startGroup = match.Groups["start"].Value;
-            // string[] end;
-            // var endGroup = match.Groups["end"].Value;
-            // if (startGroup.Contains('/'))
-            // {
-            //     start = startGroup.Split("/");
-            //     end = endGroup.Split("/");
-            // }
-            // else
-            // {
-            //     var startSplit = startGroup.Split(" ");
-            //     var endSplit = endGroup.Split(" ");
-            //     end = new string[] { endSplit[0], endSplit[1], endSplit[2] };
-            //     start = new string[] { startSplit[0], startSplit.Length >= 2 ? startSplit[1] : endSplit[1] };
-            // }
-            var weekNumberStr = match.Groups["weekNumber"].Value;
-            try
+            var response = await openAiService.SendQuery(CreateOpenAiQuery(weekTitle));
+            Console.WriteLine(response);
+            using JsonDocument structuredJson = JsonDocument.Parse(response);
+            var startDateStr = structuredJson.RootElement.GetProperty("startDate").GetString() ?? throw new Exception("Start date not found");
+            DateOnly startDate = DateOnly.ParseExact(startDateStr, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            var weekNumber = GetWeekNumber(startDate);
+            return new WeekInfoSrc
             {
-                var weekNumber = int.Parse(weekNumberStr);
-                var year = DateTime.Now.Year;
-                var dateStart = FirstDateOfWeek(year, weekNumber, DayOfWeek.Monday);
-                var dateEnd = dateStart.AddDays(4);
-                Console.WriteLine(dateStart);
-                Console.WriteLine(dateEnd);
-                var dayStart = dateStart.Day.ToString();
-                var monthStart = dateStart.Month.ToString().PadLeft(2, '0');
-                var dayEnd = dateEnd.Day.ToString();
-                var monthEnd = dateEnd.Month.ToString().PadLeft(2, '0');
-                return new WeekInfoSrc
-                {
-                    WeekNumber = weekNumber.ToString().PadLeft(2, '0'),
-                    DayStart = dayStart,
-                    MonthStart = monthStart,
-                    DayEnd = dayEnd,
-                    MonthEnd = monthEnd,
-                    Year = year.ToString()
-                };
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw new Exception("Week number not found");
-            }
-
-            // var dayStart = start[0];
-            // var monthStart = start[1];
-            // var dayEnd = end[0];
-            // var monthEnd = end[1];
-            // var year = start.Length == 3 ? start[2] : end.Length == 3 ? end[2] : DateTime.Now.Year.ToString();
-            // if (monthStart == "") monthStart = monthEnd;
+                WeekNumber = weekNumber.ToString().PadLeft(2, '0'),
+                DayStart = startDate.Day.ToString(),
+                MonthStart = startDate.Month.ToString().PadLeft(2, '0'),
+                DayEnd = startDate.AddDays(4).Day.ToString(),
+                MonthEnd = startDate.AddDays(4).Month.ToString().PadLeft(2, '0'),
+                Year = startDate.Year.ToString()
+            };
         }
 
         private static DateTime FirstDateOfWeek(int year, int weekOfYear, DayOfWeek startOfWeek)
@@ -96,6 +53,38 @@ namespace ArsenalExtractor.Functions.Domain.Services
                 weekOfYear -= 1;
             }
             return firstWeekDay.AddDays(weekOfYear * 7);
+        }
+
+        private static int GetWeekNumber(DateOnly date)
+        {
+            var cal = CultureInfo.CurrentCulture.Calendar;
+            return cal.GetWeekOfYear(date.ToDateTime(new TimeOnly(12, 0)), CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+        }
+
+        private static List<IOpenAiService.Message> CreateOpenAiQuery(string weekTitle)
+        {
+            var messages = new List<IOpenAiService.Message>
+            {
+                new() { Type = IOpenAiService.ChatMessageType.System, Content = GetSystemMessage() },
+                new() { Type = IOpenAiService.ChatMessageType.User, Content = weekTitle }
+            };
+            return messages;
+        }
+        private static string GetSystemMessage()
+        {
+            return @"
+Tu es un assistant qui aide l'utilisateur à transformer une semaine en langage naturel vers le format JSON.
+Le schema ressemble à :
+```
+{
+    ""startDate"": ""2024-12-25"",
+    ""endDate"": ""2024-12-31""
+}
+```
+La date doit être sous le format yyyy-MM-dd.
+
+Pour t'aider voici la date du Jour: " + DateTime.Now.ToString("yyyy-MM-dd");
+
         }
     }
 }

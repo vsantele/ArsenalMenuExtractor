@@ -24,7 +24,8 @@ namespace ArsenalExtractor.Functions.Domain.Services
 
         public async Task<List<List<string>>> ExtractMenuAsync(string imageUrl)
         {
-            Uri fileUri = new(imageUrl);
+            Uri baseUri = new("https://unamur.be");
+            Uri fileUri = new(baseUri, imageUrl);
 
             AnalyzeDocumentOperation operation = await _client.AnalyzeDocumentFromUriAsync(WaitUntil.Completed, _modelId, fileUri);
             AnalyzeResult result = operation.Value;

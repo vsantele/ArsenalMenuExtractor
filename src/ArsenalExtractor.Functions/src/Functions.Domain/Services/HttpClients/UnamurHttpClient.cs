@@ -12,7 +12,7 @@ namespace ArsenalExtractor.Functions.Domain.Services.HttpClients
 
         public async Task<string> GetArsenalMenuPageAsync()
         {
-            var response = await _client.GetAsync("services/vecu/arsenal-restaurants-salles/menu-tarif");
+            var response = await _client.GetAsync("fr/campus/vivre/restaurant");
             response.EnsureSuccessStatusCode();
 
             return await response.Content.ReadAsStringAsync();

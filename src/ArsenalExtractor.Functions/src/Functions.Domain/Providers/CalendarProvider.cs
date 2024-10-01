@@ -30,33 +30,41 @@ namespace ArsenalExtractor.Functions.Domain.Providers
 
         public async Task<Menu> ExtractCalendarAsync()
         {
-            var html = await _client.GetArsenalMenuPageAsync();
-            var weekInfoSrc = _htmlParser.GetWeekInfo(html);
-            var imageLink = _htmlParser.GetImageLink(html);
-            var menuDetails = await _formRecognition.ExtractMenuAsync(imageLink);
-
-            var startDate = _dateHelper.ConvertDate(weekInfoSrc.DayStart, weekInfoSrc.MonthStart, weekInfoSrc.Year);
-            var endDate = _dateHelper.ConvertDate(weekInfoSrc.DayEnd, weekInfoSrc.MonthEnd, weekInfoSrc.Year);
-
-            var weekInfo = new WeekInfo
+            try
             {
-                WeekNumber = int.Parse(weekInfoSrc.WeekNumber),
-                StartDate = _dateHelper.BeginOfWeek(startDate),
-                EndDate = _dateHelper.EndOfWeek(endDate)
-            };
 
-            var menuInfos = new List<MenuInfo>();
-            for (var i = 0; i < menuDetails.Count; i++)
-            {
-                menuInfos.Add(ConvertedMenuInfo(menuDetails[i], weekInfo.StartDate, i));
+                var html = await _client.GetArsenalMenuPageAsync();
+                var weekInfoSrc = await _htmlParser.GetWeekInfoAsync(html);
+                var imageLink = _htmlParser.GetImageLink(html);
+                var menuDetails = await _formRecognition.ExtractMenuAsync(imageLink);
+
+                var startDate = _dateHelper.ConvertDate(weekInfoSrc.DayStart, weekInfoSrc.MonthStart, weekInfoSrc.Year);
+                var endDate = _dateHelper.ConvertDate(weekInfoSrc.DayEnd, weekInfoSrc.MonthEnd, weekInfoSrc.Year);
+
+                var weekInfo = new WeekInfo
+                {
+                    WeekNumber = int.Parse(weekInfoSrc.WeekNumber),
+                    StartDate = _dateHelper.BeginOfWeek(startDate),
+                    EndDate = _dateHelper.EndOfWeek(endDate)
+                };
+
+                var menuInfos = new List<MenuInfo>();
+                for (var i = 0; i < menuDetails.Count; i++)
+                {
+                    menuInfos.Add(ConvertedMenuInfo(menuDetails[i], weekInfo.StartDate, i));
+                }
+
+                return new Menu
+                {
+                    Id = $"{weekInfo.StartDate.Year}-{weekInfoSrc.WeekNumber}",
+                    WeekInfo = weekInfo,
+                    MenuInfos = menuInfos
+                };
             }
-
-            return new Menu
+            catch (Exception e)
             {
-                Id = $"{weekInfo.StartDate.Year}-{weekInfoSrc.WeekNumber}",
-                WeekInfo = weekInfo,
-                MenuInfos = menuInfos
-            };
+                throw new Exception("Error while extracting menu", e);
+            }
         }
 
         public string GetCalendar(IEnumerable<Menu> menus)
