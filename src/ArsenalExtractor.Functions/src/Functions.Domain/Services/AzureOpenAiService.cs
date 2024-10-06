@@ -30,20 +30,21 @@ namespace ArsenalExtractor.Functions.Domain.Services
             List<ChatMessage> convertedMessages = ConvertToMessages(messages);
             ChatCompletionOptions options = new()
             {
-                ResponseFormat = ChatResponseFormat.CreateJsonSchemaFormat(
-                jsonSchemaFormatName: "date_range",
-                jsonSchema: BinaryData.FromBytes("""
-                    {
-                        "type": "object",
-                        "properties": {
-                        "startDate": { "type": "string" },
-                        "endDate": { "type": "string" }
-                        },
-                        "required": ["startDate", "endDate"],
-                        "additionalProperties": false
-                    }
-                    """u8.ToArray()),
-            jsonSchemaIsStrict: true),
+                ResponseFormat = ChatResponseFormat.CreateJsonObjectFormat()
+                // ResponseFormat = ChatResponseFormat.CreateJsonSchemaFormat(
+                // jsonSchemaFormatName: "date_range",
+                // jsonSchema: BinaryData.FromBytes("""
+                //     {
+                //         "type": "object",
+                //         "properties": {
+                //         "startDate": { "type": "string" },
+                //         "endDate": { "type": "string" }
+                //        },
+                //        "required": ["startDate", "endDate"],
+                //        "additionalProperties": false
+                //     }
+                //     """u8.ToArray()),
+                // jsonSchemaIsStrict: true),
 
             };
             try
